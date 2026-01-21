@@ -6,18 +6,20 @@ easier to deal with.
 
 # Install
 
-> git clone https://github.com/bobmagicii/ashbox
-> cd ashbox
-> bash ashbox.sh install ssl@my-web-company.tld
+```shell
+git clone https://github.com/bobmagicii/ashbox
+cd ashbox
+bash ashbox.sh install ssl@my-web-company.tld
+```
 
 # List Tracked Certs
 
-> bash ashbox.sh list
+> `bash ashbox.sh list`
 
 # Issue New Cert
 
-> bash ashbox.sh issue domain.tld
+> `bash ashbox.sh issue domain.tld`
 
 # Remove Existing Cert
 
-> bash ashbox.sh remove domain.tld
+> `bash ashbox.sh remove domain.tld`
