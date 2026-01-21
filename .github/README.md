@@ -8,10 +8,16 @@ easier to deal with.
 
 > git clone https://github.com/bobmagicii/ashbox
 > cd ashbox
-> bash install.sh ssl@my-web-company.tld
+> bash ashbox.sh install ssl@my-web-company.tld
 
-# Get New SSL Cert
+# List Tracked Certs
 
-> bash issue.sh domain.tld
+> bash ashbox.sh list
 
+# Issue New Cert
 
+> bash ashbox.sh issue domain.tld
+
+# Remove Existing Cert
+
+> bash ashbox.sh remove domain.tld
