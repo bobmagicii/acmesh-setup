@@ -6,13 +6,13 @@
 ################################################################################
 ################################################################################
 
-export BaseDir=`pwd`
-export TempDir="/tmp/ashbox"
-export InstDir="$BaseDir/.ash"
-export ConfDir="$BaseDir/.cfg"
-export CertDir="$BaseDir/certs"
+BaseDir=`pwd`
+TempDir="/tmp/ashbox"
+InstDir="$BaseDir/.ash"
+ConfDir="$BaseDir/.cfg"
+CertDir="$BaseDir/certs"
 
-export RepoURL="https://github.com/acmesh-official/acme.sh"
+RepoURL="https://github.com/acmesh-official/acme.sh"
 
 ################################################################################
 ################################################################################
