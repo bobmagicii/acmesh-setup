@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# NOTE: api access must be enabled per-domain on this registrar.
+
+# after the initial issue acmesh should remember the keys in its conf
+# directory and be able to auto-renew with the cron job it intstalls without
+# the need for the renew script that can be found in this directory.`
+
+export ACMESH="/opt/acmesh/acme.sh"
+export DOMAIN=""
+export PORKBUN_API_KEY=""
+export PORKBUN_SECRET_API_KEY=""
+
+$ACMESH --issue --dns dns_porkbun -d $DOMAIN

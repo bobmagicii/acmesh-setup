@@ -1,15 +1,20 @@
 #!/bin/bash
 
-export RepoURL="https://github.com/acmesh-official/acme.sh"
+# Install acme.sh in a standardised way on the system to allow multiple
+# services to access the SSL certs.
+
+################################################################################
+################################################################################
+
+export InstDir="/opt/acmesh"
 export TempDir="/tmp/acmesh"
+export ConfDir="$InstDir/local/confs"
+export CertDir="$InstDir/local/certs"
 
-export InstallDir="/opt/acmesh"
-export ConfigDir="/opt/acmesh/local/confs"
-export CertDir="/opt/acmesh/local/certs"
+export RepoURL="https://github.com/acmesh-official/acme.sh"
 
-# this helper script is to get acme.sh installed on in a method that feels
-# generally decent for allowing all the sites on the server to use it. it
-# should even set up a cron in the user that ran it to automate the renewals.
+################################################################################
+################################################################################
 
 # after acme.sh does its job then my apache configurations tend to look like
 # this here.
@@ -38,16 +43,16 @@ then
 	exit 1
 fi
 
-if [ -d $InstallDir ];
+if [ -d $InstDir ];
 then
-	echo "there appears an install already at $InstallDir"
+	echo "there appears an install already at $InstDir"
 	exit 2
 fi
 
 ################################################################################
 ################################################################################
 
-OptInstall="--home $InstallDir --cert-home $CertDir --config-home $ConfigDir"
+OptInstall="--home $InstDir --cert-home $CertDir --config-home $ConfDir"
 
 # grab the code.
 
