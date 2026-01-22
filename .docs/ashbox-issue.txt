@@ -5,7 +5,8 @@ Issue and Fetch a new SSL cert for the specified domains.
 
 DNS Aliases
 
-	--porkbun
+	--digitalocean (--dns dns_dgon)
+	--porkbun (--dns dns_porkbun)
 
 Other DNS
 

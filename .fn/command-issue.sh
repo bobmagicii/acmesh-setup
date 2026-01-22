@@ -9,13 +9,16 @@ CommandIssue() {
 	for Arg;
 	do
 		if [[ $Arg =~ \. ]];
-		then
-			Domains+="-d $Arg "
+		then Domains += "-d $Arg "
+
 		elif [[ $Arg == "--porkbun" ]];
-		then
-			PArgs+="--dns dns_porkbun"
+		then PArgs += "--dns dns_porkbun"
+
+		elif [[ $Arg == "--digitalocean" ]];
+		then PArgs += "--dns dns_dgon"
+
 		else
-			PArgs+="$Arg "
+			PArgs += "$Arg "
 		fi
 	done
 
