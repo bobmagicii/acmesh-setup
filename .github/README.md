@@ -57,7 +57,7 @@ Call `ashbox.sh` with no arguments, or see the files within the `.docs` director
 
 ### Quick Examples
 
-> Issue and fetch a cert for the specified domain(s).
+> Issue and fetch a cert for the specified domain(s). See the issue command with no argument for a full list of defined dns --alias options.
 ```
 ./ashbox.sh issue domain.tld --dns dns_porkbun
 ./ashbox.sh issue domain.tld --porkbun
@@ -75,12 +75,21 @@ Call `ashbox.sh` with no arguments, or see the files within the `.docs` director
 
 > Get the CLI args that make acme.sh work.
 ```
-./ashbox.sh conf:acmesh
+$ ./ashbox.sh conf:acmesh
+
+--home /opt/ashbox/.ash --cert-home /opt/ashbox/certs --config-home /opt/ashbox/.cfg
 ```
 
 > Get the SSL configuration info for Apache configuration.
 ```
-./ashbox.sh conf:apache domain.tld
+$ ./ashbox.sh conf:apache pegasusgate.net
+
+VHOST SSL CONFIG
+================
+
+SSLCertificateFile    /opt/ashbox/certs/pegasusgate.net_eec/pegasusgate.net.cer
+SSLCertificateKeyFile /opt/ashbox/certs/pegasusgate.net_eec/pegasusgate.net.key
+SSLCACertificateFile  /opt/ashbox/certs/pegasusgate.net_eec/fullchain.cer
 ```
 
 
