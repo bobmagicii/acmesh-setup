@@ -15,6 +15,14 @@ COMMANDS
 
 		Remove specified certs from the system.
 
+	default:letsencrypt
+
+		Set the default cert authority to Lets Encrypt.
+
+	default:zerossl
+
+		Set the default cert authority to ZeroSSL.
+
 	conf:acmesh
 
 		Print the command line arguments needed to make acme.sh work if choosing to call it directly.
