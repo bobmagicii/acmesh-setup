@@ -47,6 +47,8 @@ PORKBUN_API_KEY='...'
 PORKBUN_SECRET_API_KEY='...'
 ```
 
+* [DNS Mode Documentation for acme.sh](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)
+
 *Note: After the first time acme.sh uses them they will be renamed to be prefixed with SAVED_, acme.sh just does that.*
 
 
