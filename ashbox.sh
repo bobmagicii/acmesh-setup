@@ -3,7 +3,7 @@
 ################################################################################
 ################################################################################
 
-BaseDir=`pwd`
+BaseDir=`dirname "$(realpath $0)"`
 TempDir="/tmp/ashbox"
 InstDir="$BaseDir/.ash"
 ConfDir="$BaseDir/.cfg"
@@ -25,6 +25,25 @@ ASHARG=${@: 2}
 ShowInstallInfo() {
 	echo "USAGE: $0 <ssl-contact-email>"
 	echo ""
+}
+
+CommandApacheConf() {
+
+	Domain=$1
+
+	if [ -z $Domain ]; then
+		Domain='$SSLDomain'
+	fi
+
+	echo
+	echo "VHOST SSL CONFIG"
+	echo "================"
+	echo "SSLCertificateFile    ${CertDir}/${Domain}_eec/$Domain.cer"
+	echo "SSLCertificateKeyFile ${CertDir}/${Domain}_eec/$Domain.key"
+	echo "SSLCACertificateFile  ${CertDir}/${Domain}_eec/fullchain.cer"
+	echo
+
+	exit 0
 }
 
 CommandInstall() {
@@ -84,6 +103,28 @@ CommandList() {
 	exit 0
 }
 
+CommandHelp() {
+
+	echo
+	echo "* ashbox.sh issue <domain1> <...domain2> <...>"
+	echo "  Issue SSL certs for new domains."
+	echo
+	echo "* ashbox.sh remove <domain1> <...domain2> <...>"
+	echo "  Remove an SSL cert from the system."
+	echo
+	echo "* ashbox.sh list"
+	echo "  List all the domains tracked by acme.sh."
+	echo
+	echo "* ashbox.sh apacheconf <domain>"
+	echo "  Print the SSL config options for Apache configuration."
+	echo
+	echo "* ashbox.sh install"
+	echo "  Install acme.sh and configure within ashbox."
+	echo
+
+	exit 0
+}
+
 CommandRemove() {
 
 	Domains=""
@@ -103,21 +144,28 @@ CommandRemove() {
 ################################################################################
 ################################################################################
 
-if [ $ASHCMD == 'issue' ];
+if [ "$ASHCMD" == 'issue' ];
 then
 	CommandIssue $ASHARG
 
-elif [ $ASHCMD == 'remove' ];
+elif [ "$ASHCMD" == 'remove' ];
 then
 	CommandRemove $ASHARG
 
-elif [ $ASHCMD == 'list' ];
+elif [ "$ASHCMD" == 'list' ];
 then
 	CommandList $ASHARG
 
-elif [ $ASHCMD == 'install' ];
+elif [ "$ASHCMD" == 'install' ];
 then
 	CommandInstall $ASHARG
+
+elif [ "$ASHCMD" == 'apacheconf' ];
+then
+	CommandApacheConf $ASHARG
+
+else
+	CommandHelp
 
 fi
 

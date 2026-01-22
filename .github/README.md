@@ -12,24 +12,32 @@ cd ashbox
 bash ashbox.sh install ssl@my-web-company.tld
 ```
 
-# List Tracked Certs
+# Config
 
-`bash ashbox.sh list`
+### DNS API Keys
 
-# Issue New Cert
+Paste the variables into `account.conf`
 
-Single domain.
+```shell
+PORKBUN_API_KEY='...'
+PORKBUN_SECRET_API_KEY='...'
+```
 
-`bash ashbox.sh issue domain.tld`
+# Usage
 
-Multiple domains.
+```text
+* bash ashbox.sh issue <domain1> <...domain2> <...>
+  Issue SSL certs for new domains.
 
-`bash ashbox.sh issue domain1.tld domain2.tld`
+* bash ashbox.sh remove <domain1> <...domain2> <...>
+  Remove an SSL cert from the system.
 
-Wildcard certs.
+* bash ashbox.sh list
+  List all the domains tracked by acme.sh.
 
-`bash ashbox.sh issue domain.tld *.domain.tld`
+* bash ashbox.sh apacheconf <domain>
+  Print the SSL config options for Apache configuration.
 
-# Remove Existing Cert
-
-`bash ashbox.sh remove domain.tld`
+* bash ashbox.sh install
+  Install acme.sh and configure within ashbox.
+```
