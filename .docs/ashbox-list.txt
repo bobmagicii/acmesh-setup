@@ -1,0 +1,11 @@
+ashbox.sh list <options>
+=======================================
+
+List the certificates being managed by the system.
+
+Formats:
+
+	--csv (Common Separated Values)
+	--ssv (Space Separated Values)
+	--tsv (Tab Separated Values)
+	--json (JSON Array of Rows)

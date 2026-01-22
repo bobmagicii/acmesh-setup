@@ -5,3 +5,9 @@ ShowHelpFile() {
 	echo
 }
 
+ArrayJoin() {
+	local IFS=$1
+
+	shift
+	echo "$*"
+}
