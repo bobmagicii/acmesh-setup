@@ -1,13 +1,12 @@
 # ashbox (acme.sh box)
 
-A box to keep and use acme.sh within. There are only a few things you ever
-need to do to manage certs for projects and this aims to make it just a little easier to deal with.
+A box to keep and use acme.sh within.
 
 * Installs, configures, and contains a managed acme.sh setup.
-* Simplify and centralise a portable certificate store.
-* Simplify interacting with the certificate system.
-* Simplify generating configuration for services (like Apache).
-
+* Centralised portable certificate storage.
+* Generate configuration for misc system and services.
+	* acme.sh CLI Config
+	* Apache 2.4 SSL Config
 
 
 # Requirements
@@ -15,7 +14,7 @@ need to do to manage certs for projects and this aims to make it just a little e
 * Git
 * Bash
 
-*Note: Having experience with acme.sh before will be very helpful this project is not far enough along yet to fully abstract it from you.*
+*Note: Having prior experience with acme.sh will be helpful this project is not far enough along yet to fully abstract it.*
 
 
 
@@ -31,7 +30,13 @@ $ chmod +x ./ashbox.sh
 $ ./ashbox.sh install ssl@my-web-company.tld
 ```
 
-When it is done, a crontab entry will have been automatically created to handle the renewals of certificates. That can be verified by checking the output of `crontab -l` afterwards.
+One of the things acme.sh does automatically is add an entry to crontab to handle automatically rewewing certs. That can be verified by checking the output of `crontab -l` - it would be good to edit the crontab to change the time that suits you afterwards with `crontab -e`.
+
+```
+$ crontab -l | grep ashbox
+
+20 4 * * * "/opt/ashbox/.ash"/acme.sh --cron --home "/opt/ashbox/.ash" --config-home "/opt/ashbox/.cfg" > /dev/null
+```
 
 
 
@@ -41,13 +46,14 @@ When it is done, a crontab entry will have been automatically created to handle 
 
 Each of the DNS supported by acme.sh have their variables you set to make their script work. Paste those variables into the `.cfg/account.conf` file.
 
-> Example: to make --dns dns_porkbun work in acme.sh...
+* [DNS Mode Documentation for acme.sh](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)
+
 ```text
+# make --dns dns_porkbun work
+
 PORKBUN_API_KEY='...'
 PORKBUN_SECRET_API_KEY='...'
 ```
-
-* [DNS Mode Documentation for acme.sh](https://github.com/acmesh-official/acme.sh/wiki/dnsapi)
 
 *Note: After the first time acme.sh uses them they will be renamed to be prefixed with SAVED_, acme.sh just does that.*
 
@@ -57,35 +63,60 @@ PORKBUN_SECRET_API_KEY='...'
 
 Call `ashbox.sh` with no arguments, or see the files within the `.docs` directory for detailed usage help.
 
-### Quick Examples
+### Cert Management
 
-> Issue and fetch a cert for the specified domain(s). See the issue command with no argument for a full list of defined dns --alias options.
-```
-./ashbox.sh issue domain.tld --dns dns_porkbun
-./ashbox.sh issue domain.tld --porkbun
-```
+Issue and fetch a cert for the specified domain(s) using DNS API Mode. See the `issue` command with no argument for more info and a list of defined DNS aliases. It can take the same inputs `acme.sh --issue`.
 
-> List all the certificates tracked by this system.
 ```
-./ashbox.sh list
+$ ./ashbox.sh issue domain.tld --dns porkbun
 ```
 
-> Remove a certificate from the system.
+Remove a certificate from the system.
+
 ```
-./ashbox.sh remove domain.tld
+$ ./ashbox.sh remove domain.tld
 ```
 
-> Get the CLI args that make acme.sh work.
+List all the certificates tracked by this system.
+
+```
+$ ./ashbox.sh list
+```
+```
+Main_Domain|KeyLength|SAN_Domains|Profile|CA|Created|Renew
+atl.pegasusgate.net|"ec-256"|no||LetsEncrypt.org|2026-01-22T03:40:27Z|2026-02-20T03:40:27Z
+new.pegasusgate.net|"ec-256"|no||LetsEncrypt.org|2026-01-22T03:41:53Z|2026-02-20T03:41:53Z
+pegasusgate.net|"ec-256"|*.pegasusgate.net||LetsEncrypt.org|2026-01-22T03:28:12Z|2026-02-20T03:28:12Z
+```
+
+```
+$ ./ashbox.sh list --json
+```
+```
+[
+	{ "Main_Domain": "atl.pegasusgate.net", "KeyLength": "ec-256", "SAN_Domains": "no", "Profile": "-", "CA": "LetsEncrypt.org", "Created": "2026-01-22T03:40:27Z", "Renew": "2026-02-20T03:40:27Z" },
+	{ "Main_Domain": "new.pegasusgate.net", "KeyLength": "ec-256", "SAN_Domains": "no", "Profile": "-", "CA": "LetsEncrypt.org", "Created": "2026-01-22T03:41:53Z", "Renew": "2026-02-20T03:41:53Z" },
+	{ "Main_Domain": "pegasusgate.net", "KeyLength": "ec-256", "SAN_Domains": "*.pegasusgate.net", "Profile": "-", "CA": "LetsEncrypt.org", "Created": "2026-01-22T03:28:12Z", "Renew": "2026-02-20T03:28:12Z" }
+]
+```
+
+### Configuration Tools
+
+Get the CLI args that make acme.sh work.
+
 ```
 $ ./ashbox.sh conf:acmesh
-
+```
+```
 --home /opt/ashbox/.ash --cert-home /opt/ashbox/certs --config-home /opt/ashbox/.cfg
 ```
 
-> Get the SSL configuration info for Apache configuration.
+Get the SSL configuration for Apache 2.4 configuration.
+
 ```
 $ ./ashbox.sh conf:apache pegasusgate.net
-
+```
+```
 VHOST SSL CONFIG
 ================
 
@@ -101,9 +132,10 @@ SSLCACertificateFile  /opt/ashbox/certs/pegasusgate.net_eec/fullchain.cer
 
 ### acme.sh
 
-* acme.sh is installed to the `.ash` directory within ashbox.
+* acme.sh is physically located in the `.ash` directory within ashbox.
 * acme.sh config is stored in the `.cfg` directory within ashbox.
 * acme.sh can be called directly via `.ash/acme.sh`
+* Use `./ashbox.sh conf:acmesh` to get the CLI arguments to use if calling acme.sh directly.
 
 
 ### Certificates

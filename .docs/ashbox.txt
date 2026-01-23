@@ -3,9 +3,10 @@ ashbox.sh <command>...
 
 COMMANDS
 
-	list
+	list <options>
 
 		Show all certs being tracked by acme.sh.
+		Formats: --csv, --tsv, --ssv, --json, Default: raw format.
 
 	issue <...>
 

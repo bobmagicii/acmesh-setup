@@ -62,6 +62,7 @@ CommandList() {
 
 		for Row in "${Rows[@]}";
 		do
+			Row=${Row//"||"/"|-|"}
 			echo $(ArrayJoin "$Delim" ${Row[@]//"|"/" "})
 		done
 	elif [[ $Format == 'json' ]];
@@ -83,10 +84,11 @@ CommandList() {
 			Buffer+="\"${Headers[5]}\": \"${Row[5]}\", "
 			Buffer+="\"${Headers[6]}\": \"${Row[6]}\" "
 			Buffer+=" },"
+			Buffer+=$'\n'
 		done
 
 		echo '['
-		echo ${Buffer:0:${#Buffer}-1}
+		echo ${Buffer:0:${#Buffer}-2}
 		echo ']'
 
 	elif [[ $Format == 'default' ]];
