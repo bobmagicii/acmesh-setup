@@ -3,38 +3,50 @@
 ################################################################################
 ################################################################################
 
-BaseDir=`dirname "$(realpath $0)"`
+BaseBin=$(realpath "$0")
+BaseDir=$(dirname "${BaseBin}")
+InstDir="${BaseDir}/.ash"
+ConfDir="${BaseDir}/.cfg"
+HelpDir="${BaseDir}/.docs"
+FuncDir="${BaseDir}/.fn"
+CertDir="${BaseDir}/certs"
 TempDir="/tmp/ashbox"
-InstDir="$BaseDir/.ash"
-ConfDir="$BaseDir/.cfg"
-HelpDir="$BaseDir/.docs"
-FuncDir="$BaseDir/.fn"
-CertDir="$BaseDir/certs"
 
 RepoURL="https://github.com/acmesh-official/acme.sh"
 
 ################################################################################
 ################################################################################
 
-ASHBIN="$InstDir/acme.sh"
-ASHCFG="--home $InstDir --cert-home $CertDir --config-home $ConfDir"
+ASHBIN="${InstDir}/acme.sh"
+ASHCFG="--home ${InstDir} --cert-home ${CertDir} --config-home ${ConfDir}"
 ASHCMD=$1
 ASHARG=${@: 2}
-ASHGIT="git -C $BaseDir"
+ASHGIT="git -C ${BaseDir}"
 
 ################################################################################
 ################################################################################
 
-source $FuncDir/util.sh
-source $FuncDir/config-acmesh.sh
-source $FuncDir/config-apache.sh
-source $FuncDir/command-defaults.sh
-source $FuncDir/command-help.sh
-source $FuncDir/command-install.sh
-source $FuncDir/command-issue.sh
-source $FuncDir/command-list.sh
-source $FuncDir/command-remove.sh
-source $FuncDir/command-update.sh
+if [[ $InstDir =~ " " ]];
+then
+	echo "acme.sh does not support spaces in paths."
+	echo "There are several issues in it's GitHub issue tracker about it."
+	echo "Most of them are closed with \"don't use spaces\" lol."
+	exit 1
+fi
+
+################################################################################
+################################################################################
+
+source "$FuncDir/util.sh"
+source "$FuncDir/config-acmesh.sh"
+source "$FuncDir/config-apache.sh"
+source "$FuncDir/command-defaults.sh"
+source "$FuncDir/command-help.sh"
+source "$FuncDir/command-install.sh"
+source "$FuncDir/command-issue.sh"
+source "$FuncDir/command-list.sh"
+source "$FuncDir/command-remove.sh"
+source "$FuncDir/command-update.sh"
 
 ################################################################################
 ################################################################################

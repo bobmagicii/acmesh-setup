@@ -13,9 +13,9 @@ CommandConfigForApacheConf() {
 	echo "VHOST SSL CONFIG"
 	echo "================"
 	echo
-	echo "SSLCertificateFile    ${CertDir}/${Domain}_eec/$Domain.cer"
-	echo "SSLCertificateKeyFile ${CertDir}/${Domain}_eec/$Domain.key"
-	echo "SSLCACertificateFile  ${CertDir}/${Domain}_eec/fullchain.cer"
+	echo "SSLCertificateFile    ${CertDir}/${Domain}_ecc/$Domain.cer"
+	echo "SSLCertificateKeyFile ${CertDir}/${Domain}_ecc/$Domain.key"
+	echo "SSLCACertificateFile  ${CertDir}/${Domain}_ecc/fullchain.cer"
 	echo
 
 	exit 0
