@@ -4,7 +4,7 @@ A box to keep and use acme.sh within.
 
 * Installs, configures, and contains a managed acme.sh setup.
 * Centralised portable certificate storage.
-* Raw, CSV, or JSON listing of intalled certs.
+* Raw, CSV, or JSON listing of installed certs.
 * Generate configuration for misc system and services.
 	* acme.sh CLI Config
 	* Apache 2.4 SSL Config
