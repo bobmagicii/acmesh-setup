@@ -40,6 +40,7 @@ fi
 source "$FuncDir/util.sh"
 source "$FuncDir/config-acmesh.sh"
 source "$FuncDir/config-apache.sh"
+source "$FuncDir/config-gitea.sh"
 source "$FuncDir/command-defaults.sh"
 source "$FuncDir/command-help.sh"
 source "$FuncDir/command-install.sh"
@@ -77,6 +78,9 @@ then CommandConfigForAcmeShCLI $ASHARG
 
 elif [ "$ASHCMD" == 'conf:apache' ];
 then CommandConfigForApacheConf $ASHARG
+
+elif [ "$ASHCMD" == 'conf:gitea' ];
+then CommandConfigForGitea $ASHARG
 
 fi
 

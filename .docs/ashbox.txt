@@ -20,18 +20,14 @@ COMMANDS
 
 		Download updates for both ashbox.sh and acme.sh.
 
-	default:letsencrypt
+SET DEFAULTS
 
-		Set the default cert authority to Lets Encrypt.
+	default:letsencrypt - use Let's Encrypt by default.
+	default:zerossl - use ZerlSSL by default.
 
-	default:zerossl
+CONFIG TOOLS
 
-		Set the default cert authority to ZeroSSL.
+	conf:acmesh - CLI args needed to make acme.sh run.
+	conf:apache <domain> - VHost SSL Configuration
+	conf:gitea <domain> - Gitea SSL Configuration
 
-	conf:acmesh
-
-		Print the command line arguments needed to make acme.sh work if choosing to call it directly.
-
-	conf:apache <domain>
-
-		Print the SSL config used by Apache using the $SSLDomain placeholder or a specified domain.
