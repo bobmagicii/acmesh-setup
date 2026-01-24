@@ -71,7 +71,7 @@ Call `ashbox.sh` with no arguments, or see the files within the `.docs` director
 Issue and fetch a cert for the specified domain(s) using DNS API Mode. See the `issue` command with no argument for more info and a list of defined DNS aliases. It can take the same inputs `acme.sh --issue`.
 
 ```
-$ ./ashbox.sh issue domain.tld --dns porkbun
+$ ./ashbox.sh issue domain.tld --porkbun
 ```
 
 Remove a certificate from the system.
