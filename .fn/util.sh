@@ -47,14 +47,37 @@ StringRepeat() {
 }
 
 ################################################################################
+## pretty printing functions ###################################################
+
+PrintH1() {
+
+	local Msg=$1
+	local Char="/"
+
+	echo $(StringRepeat "${Char}" $(GetTerminalWidth))
+	echo "${Char}${Char} ${Msg}" $(StringRepeat "${Char}" $(GetTerminalWidth)-${#Msg}-4)
+
+	return $OK
+}
+
+PrintH2() {
+
+	local Msg=$1
+	local Char="/"
+
+	echo "${Char}${Char} ${Msg}" $(StringRepeat "${Char}" $(GetTerminalWidth)-${#Msg}-4)
+
+	return $OK
+}
+
+################################################################################
 ## update functions ############################################################
 
 UpdateSelf() {
 
 	local Command="${ASHGIT} pull"
 
-	echo "Updating Ashbox"
-	echo "==============="
+	PrintH2 "Updating ashbox"
 	echo
 	$Command
 	echo
@@ -66,8 +89,7 @@ UpdateASH() {
 
 	local Command="bash ${ASHBIN} ${ASHCFG} --upgrade"
 
-	echo "Updating acme.sh"
-	echo "================"
+	PrintH2 "Updating acme.sh"
 	echo
 	$Command
 	echo
@@ -78,23 +100,11 @@ UpdateASH() {
 ################################################################################
 ################################################################################
 
-CommandHeader() {
-	
-	local Char="#"
-	local Msg="${Char}${Char} ashbox v${Version} "
-
-	StringRepeat "${Char}" $(GetTerminalWidth)
-	echo -n "${Msg}"
-	StringRepeat "${Char}" $(GetTerminalWidth)-${#Msg}
-	echo
-	
-	echo
-	return $OK
-}
-
 ShowHelpFile() {
 	echo
 	cat $HelpDir/$1
 	echo
+
+	return $OK
 }
 

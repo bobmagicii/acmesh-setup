@@ -15,7 +15,7 @@ declare CertDir="${BaseDir}/certs"
 declare TempDir="/tmp/ashbox"
 
 declare RepoURL="https://github.com/acmesh-official/acme.sh"
- 
+
 ################################################################################
 ################################################################################
 
@@ -86,10 +86,14 @@ then CommandConfigForApacheConf $ASHARG
 elif [ "$ASHCMD" == 'conf:gitea' ];
 then CommandConfigForGitea $ASHARG
 
+elif [ "$ASHCMD" == '--version' ];
+then
+	echo "${Version}"
+	exit 0
 fi
 
 ################################################################################
 ################################################################################
 
-CommandHeader
+PrintH1 "ashbox v${Version}"
 CommandHelp
