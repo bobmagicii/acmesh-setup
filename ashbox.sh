@@ -1,27 +1,31 @@
 #!/usr/bin/env bash
 
 ################################################################################
+## a s h b o x #################################################################
+
+readonly Version="1.0.0-dev"
+
+declare BaseBin=$(realpath "$0")
+declare BaseDir=$(dirname "${BaseBin}")
+declare InstDir="${BaseDir}/.ash"
+declare ConfDir="${BaseDir}/.cfg"
+declare HelpDir="${BaseDir}/.docs"
+declare FuncDir="${BaseDir}/.fn"
+declare CertDir="${BaseDir}/certs"
+declare TempDir="/tmp/ashbox"
+
+declare RepoURL="https://github.com/acmesh-official/acme.sh"
+ 
+################################################################################
 ################################################################################
 
-BaseBin=$(realpath "$0")
-BaseDir=$(dirname "${BaseBin}")
-InstDir="${BaseDir}/.ash"
-ConfDir="${BaseDir}/.cfg"
-HelpDir="${BaseDir}/.docs"
-FuncDir="${BaseDir}/.fn"
-CertDir="${BaseDir}/certs"
-TempDir="/tmp/ashbox"
+declare ASHBIN="${InstDir}/acme.sh"
+declare ASHCFG="--home ${InstDir} --cert-home ${CertDir} --config-home ${ConfDir}"
+declare ASHCMD=$1
+declare ASHARG=${@: 2}
+declare ASHGIT="git -C ${BaseDir}"
 
-RepoURL="https://github.com/acmesh-official/acme.sh"
-
-################################################################################
-################################################################################
-
-ASHBIN="${InstDir}/acme.sh"
-ASHCFG="--home ${InstDir} --cert-home ${CertDir} --config-home ${ConfDir}"
-ASHCMD=$1
-ASHARG=${@: 2}
-ASHGIT="git -C ${BaseDir}"
+readonly OK=0
 
 ################################################################################
 ################################################################################
@@ -87,4 +91,5 @@ fi
 ################################################################################
 ################################################################################
 
+CommandHeader
 CommandHelp

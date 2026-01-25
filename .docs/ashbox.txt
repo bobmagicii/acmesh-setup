@@ -10,11 +10,13 @@ COMMANDS
 
 	issue <...>
 
-		Fetch SSL certs for the specified domains. Use without any arguments to see full usage and options.
+		Fetch SSL certs for the specified domains.
+		Use without any arguments to see full usage and options.
 
 	remove <...>
 
 		Remove specified certs from the system.
+		Use without any arguments to see full usage and options.
 
 	update
 
