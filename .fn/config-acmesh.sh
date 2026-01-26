@@ -1,5 +1,10 @@
 
-CommandConfigForAcmeShCLI() {
+AshboxRegisterCommandFunction "cli:acmesh" "CommandConfigForAcmeShCLI"
+
+################################################################################
+################################################################################
+
+CommandConfigForAcmeShCLI() {(
 	echo "$ASHCFG"
-	exit 0
-}
+	exit $KTHXBAI
+)};

@@ -1,13 +1,43 @@
 ################################################################################
 ## ashbox.sh remove ############################################################
 
-CommandRemove() {
+AshboxRegisterCommandFunction "remove" "CommandRemove"
+
+################################################################################
+################################################################################
+
+function CommandRemove() {(
 
 	local Arg=""
 	local Domain=""
 	local DoClean=0
 
-	########
+	################################################################
+	################################################################
+
+	function CertRemoveAcmeSh() {
+
+		local Domain=$1
+
+		echo ">> Removing ${Domain} from acme.sh..."
+		bash "${ASHBIN}" $ASHCFG --remove -d "${Domain}" &>/dev/null
+
+		return $KTHXBAI
+	};
+
+	function CertRemoveFiles() {
+
+		local Domain=$1
+		local CertDir=$2
+
+		echo ">> Removing ${Domain} certificate files..."
+		rm -rf "${CertDir}/${Domain}_ecc"
+
+		return $KTHXBAI
+	};
+
+	################################################################
+	################################################################
 
 	for Arg;
 	do
@@ -22,7 +52,7 @@ CommandRemove() {
 	if [[ -z $Domain ]];
 	then
 		ShowHelpFile "ashbox-remove.txt"
-		exit 0
+		exit $OHSNAP
 	fi
 
 	########
@@ -39,29 +69,5 @@ CommandRemove() {
 
 	########
 
-	exit $OK
-}
-
-################################################################################
-################################################################################
-
-CertRemoveAcmeSh() {
-
-	local Domain=$1
-
-	echo ">> Removing ${Domain} from acme.sh..."
-	bash "${ASHBIN}" $ASHCFG --remove -d "${Domain}" &>/dev/null
-
-	return $OK
-}
-
-CertRemoveFiles() {
-
-	local Domain=$1
-	local CertDir=$2
-
-	echo ">> Removing ${Domain} certificate files..."
-	rm -rf "${CertDir}/${Domain}_ecc"
-
-	return $OK
-}
+	exit $KTHXBAI
+)};

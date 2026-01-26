@@ -29,6 +29,8 @@ declare ASHCMD=$1
 declare ASHARG=${@: 2}
 declare ASHGIT="git -C ${BaseDir}"
 
+declare -A ASHCMDFNC
+
 readonly OK=0
 readonly ERR=1
 
@@ -37,6 +39,7 @@ readonly ERR=1
 
 readonly KTHXBAI=$OK
 readonly OHSNAP=$ERR
+readonly NAHIDK=-1
 
 ################################################################################
 ################################################################################
@@ -52,65 +55,42 @@ fi
 ################################################################################
 ################################################################################
 
-source "${FuncDir}/util.sh"
-source "${FuncDir}/config-acmesh.sh"
-source "${FuncDir}/config-apache.sh"
-source "${FuncDir}/config-gitea.sh"
-source "${FuncDir}/command-defaults.sh"
-source "${FuncDir}/command-help.sh"
-source "${FuncDir}/command-install.sh"
-source "${FuncDir}/command-issue.sh"
-source "${FuncDir}/command-list.sh"
-source "${FuncDir}/command-remove.sh"
-source "${FuncDir}/command-update.sh"
-source "${FuncDir}/command-build.sh"
+function AshboxRegisterCommandFunction() {
+
+	local Cmd=$1
+	local Fnc=$2
+
+	ASHCMDFNC[$Cmd]=$Fnc
+
+	return $KTHXBAI
+};
+
+function AshboxLoadScriptsFromDir() {
+
+	local Dir=$1
+	local File=""
+
+	########
+
+	for File in ${Dir}/*.sh;
+	do
+		source "${File}"
+	done
+
+	########
+
+	return $KTHXBAI
+};
+
+AshboxLoadScriptsFromDir "${FuncDir}"
 
 ################################################################################
 ################################################################################
 
-if [[ $ASHCMD == "issue" ]];
-then CommandIssue $ASHARG
-
-elif [[ $ASHCMD == "remove" ]];
-then CommandRemove $ASHARG
-
-elif [[ $ASHCMD == "list" ]];
+if [[ -v ASHCMDFNC[$ASHCMD] ]];
 then
-	CommandList $ASHARG
+	${ASHCMDFNC[$ASHCMD]} $ASHARG
 	exit $?
-
-elif [[ $ASHCMD == "install" ]];
-then
-	CommandInstall $ASHARG
-	exit $?
-
-elif [[ $ASHCMD == "update" ]];
-then
-	CommandUpdate $ASHARG
-	exit $?
-
-elif [[ $ASHCMD == "build" ]];
-then CommandBuildRelease $ASHARG
-
-elif [[ $ASHCMD == "default:letsencrypt" ]];
-then CommandDefaultLetsEncrypt
-
-elif [[ $ASHCMD == "default:zerossl" ]];
-then CommandDefaultLetsEncrypt
-
-elif [[ $ASHCMD == "conf:acmesh" ]];
-then CommandConfigForAcmeShCLI $ASHARG
-
-elif [[ $ASHCMD == "conf:apache" ]];
-then CommandConfigForApacheConf $ASHARG
-
-elif [[ $ASHCMD == "conf:gitea" ]];
-then CommandConfigForGitea $ASHARG
-
-elif [[ $ASHCMD == "--version" ]];
-then
-	echo "ashbox v${Version} [ acme.sh" $("$ASHBIN" $ASHCFG --version | grep v) "]"
-	exit 0
 fi
 
 ################################################################################
@@ -118,3 +98,5 @@ fi
 
 PrintH1 "ashbox v${Version}"
 CommandHelp
+
+exit $NAHIDK;

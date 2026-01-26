@@ -1,5 +1,5 @@
 
-CommandHelp() {
-	ShowHelpFile ashbox.txt
-	exit 0
-}
+CommandHelp() {(
+	ShowHelpFile "ashbox.txt"
+	exit $KTHXBAI;
+)};

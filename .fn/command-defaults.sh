@@ -1,14 +1,22 @@
+################################################################################
+## ashbox.sh default: ##########################################################
 
-CommandDefaultLetsEncrypt() {
+AshboxRegisterCommandFunction "default:letsencrypt" "CommandDefaultLetsEncrypt"
+AshboxRegisterCommandFunction "default:zerossl" "CommandDefaultZeroSSL"
+
+################################################################################
+################################################################################
+
+function CommandDefaultLetsEncrypt() {(
 
 	bash "${ASHBIN}" $ASHCFG --set-default-ca --server "letsencrypt"
 
-	exit $OK
-}
+	exit $KTHXBAI
+)};
 
-CommandDefaultZeroSSL() {
+function CommandDefaultZeroSSL() {(
 
 	bash "${ASHBIN}" $ASHCFG --set-default-ca --server "zerossl"
 
-	exit $OK
-}
+	exit $KTHXBAI
+)};

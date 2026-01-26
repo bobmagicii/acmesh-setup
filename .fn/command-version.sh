@@ -1,16 +1,14 @@
 ################################################################################
 ## ashbox.sh --version #########################################################
 
-AshboxRegisterCommandFunction "build" "CommandBuildRelease"
+AshboxRegisterCommandFunction "--version" "CommandVersion"
 
 ################################################################################
 ################################################################################
 
-function CommandBuildRelease() {(
+function CommandVersion() {(
 
-	# edit script version number on disk
-
-	# make zip file
+	echo "ashbox v${Version} [ acme.sh" $("$ASHBIN" $ASHCFG --version | grep v) "]"
 
 	exit $KTHXBAI
 )};

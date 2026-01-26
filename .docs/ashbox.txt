@@ -33,7 +33,7 @@ SET DEFAULTS
 
 CONFIG TOOLS
 
-	conf:acmesh - CLI args needed to make acme.sh run.
+	cli:acmesh - CLI args needed to make acme.sh run.
 	conf:apache <domain> - VHost SSL Configuration
 	conf:gitea <domain> - Gitea SSL Configuration
 

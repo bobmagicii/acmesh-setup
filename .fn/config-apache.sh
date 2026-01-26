@@ -1,5 +1,10 @@
 
-CommandConfigForApacheConf() {
+AshboxRegisterCommandFunction "conf:apache" "CommandConfigForApacheConf"
+
+################################################################################
+################################################################################
+
+CommandConfigForApacheConf() {(
 
 	Domain=$1
 
@@ -18,5 +23,5 @@ CommandConfigForApacheConf() {
 	echo "SSLCACertificateFile  ${CertDir}/${Domain}_ecc/fullchain.cer"
 	echo
 
-	exit 0
-}
+	exit $KTHXBAI
+)}

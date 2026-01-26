@@ -1,5 +1,10 @@
 
-CommandConfigForGitea() {
+AshboxRegisterCommandFunction "conf:gitea" "CommandConfigForGitea"
+
+################################################################################
+################################################################################
+
+function CommandConfigForGitea() {(
 
 	Domain=$1
 
@@ -18,5 +23,5 @@ CommandConfigForGitea() {
 	echo "CERT_FILE = ${CertDir}/${Domain}_ecc/fullchain.cer"
 	echo
 
-	exit 0
-}
+	exit $KTHXBAI
+)}
