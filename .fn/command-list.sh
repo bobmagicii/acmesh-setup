@@ -17,15 +17,18 @@ function CommandList() {(
 	################################################################
 
 	function FetchRawDataAcmeSh() {
+
 		bash "${ASHBIN}" $ASHCFG --list --listraw
+
 		return $KTHXBAI
-	}
+	};
 
 	function BackfillRawIntoLines() {
 
 		# reference $Raw
 		# backfills $Lines=()
 
+		local Line=""
 		local IFS=$'\n'
 
 		########
@@ -38,7 +41,7 @@ function CommandList() {(
 		########
 
 		return $KTHXBAI
-	}
+	};
 
 	function BackfillLinesIntoHeadersRows() {
 
@@ -64,7 +67,7 @@ function CommandList() {(
 		########
 
 		return $KTHXBAI
-	}
+	};
 
 	function BackfillRowToBits() {
 
@@ -77,7 +80,7 @@ function CommandList() {(
 		Row=(${Row[@]})
 
 		return $KTHXBAI
-	}
+	};
 
 	function BackpackRowIntoBufferJSON() {
 
@@ -102,9 +105,11 @@ function CommandList() {(
 		########
 
 		return $KTHXBAI
-	}
+	};
 
 	function PrintJSON() {
+
+		# reference $Rows
 
 		local Row=""
 		local Buffer=""
@@ -124,9 +129,15 @@ function CommandList() {(
 		########
 
 		return $KTHXBAI
-	}
+	};
 
 	function PrintDelimited() {
+
+		# reference $Rows
+
+		local Row=""
+
+		########
 
 		echo $(ArrayJoin "$Delim" ${Headers[@]})
 
@@ -136,15 +147,19 @@ function CommandList() {(
 			echo $(ArrayJoin "$Delim" ${Row[@]//"|"/" "})
 		done
 
+		########
+
 		return $KTHXBAI
-	}
+	};
 
 	function PrintRaw() {
+
+		# reference $Raw
 
 		echo "${Raw}"
 
 		return $KTHXBAI
-	}
+	};
 
 	################################################################
 	################################################################
