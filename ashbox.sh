@@ -28,11 +28,10 @@ function Ashbox() {(
 
 	declare    AshboxCmd=$1
 	declare    AshboxArgs=${@:2}
-	declare    AshboxGitCmd="git -C ${AshboxRoot}"
+	declare    AshboxGitCmd=""
 	declare -A AshboxCmdFuncs=()
-
-	declare AcmeShCmd="${AshboxConfig['InstDir']}/acme.sh"
-	declare AcmeShCfgFlags="--home ${AshboxConfig['InstDir']} --cert-home ${AshboxConfig['CertDir']} --config-home ${AshboxConfig['ConfDir']}"
+	declare    AcmeShCmd=""
+	declare    AcmeShCfgFlags=""
 
 	################################
 	################################
@@ -45,6 +44,40 @@ function Ashbox() {(
 	declare -r KTHXBAI=$OK
 	declare -r OHSNAP=$ERR
 	declare -r NAHIDK=$ERR_UNKNOWN
+
+	################################
+	################################
+
+	function Constructor() {
+		_BackfillAshboxConfig
+		_BackfillAcmeShConfig
+		return $KTHXBAI
+	};
+
+	function _BackfillAshboxConfig() {
+
+		AshboxGitCmd="git -C ${AshboxConfig['Root']}"
+
+		return $KTHXBAI
+	};
+
+	function _BackfillAcmeShConfig() {
+
+		# acme.sh command path.
+
+		AcmeShCmd="${AshboxConfig['InstDir']}/acme.sh"
+
+		# arguments to make acme.sh put things where we want them
+		# to be put and stuff.
+
+		AcmeShCfgFlags+="--home ${AshboxConfig['InstDir']} "
+		AcmeShCfgFlags+="--cert-home ${AshboxConfig['CertDir']} "
+		AcmeShCfgFlags+="--config-home ${AshboxConfig['ConfDir']} "
+
+		########
+
+		return $KTHXBAI
+	};
 
 	################################
 	################################
@@ -123,6 +156,8 @@ function Ashbox() {(
 
 	################################
 	################################
+
+	Constructor
 
 	AshboxHaltIfPathHasWhitespace "${InstDir}"
 	AshboxPluginLoader "${AshboxConfig['FuncDir']}"
