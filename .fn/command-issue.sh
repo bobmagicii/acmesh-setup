@@ -1,3 +1,5 @@
+################################################################################
+## ashbox.sh issue #############################################################
 
 CommandIssue() {
 
@@ -26,12 +28,16 @@ CommandIssue() {
 
 	if [[ -z $Domains ]];
 	then
-		ShowHelpFile ashbox-issue.txt
+		ShowHelpFile "ashbox-issue.txt"
 		exit 0
 	fi
 
 	########
 
-	bash "$ASHBIN" $ASHCFG --issue $PArgs $Domains
+	PrintH2Ln "Beinning acme.sh Certificate Issuing..."
+
+	bash "${ASHBIN}" $ASHCFG --issue $PArgs $Domains
+	echo
+
 	exit 0
 }

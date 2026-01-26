@@ -1,5 +1,5 @@
 ################################################################################
-## ashbox.sh install############################################################
+## ashbox.sh install ###########################################################
 
 CommandInstall() {
 
@@ -10,13 +10,11 @@ CommandInstall() {
 
 	if [[ -z $ContactEmail ]];
 	then
-		ShowHelpFile ashbox-install.txt
+		ShowHelpFile "ashbox-install.txt"
 		exit $ERR
 	fi
 
 	########
-
-	# grab the code.
 
 	PrintH2Ln "Installing acme.sh..."
 	FetchAcmeShInstall "${AcmeShRepoURL}" "${TempDir}"

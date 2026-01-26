@@ -39,7 +39,7 @@ if [[ $InstDir =~ " " ]];
 then
 	echo "acme.sh does not support spaces in paths."
 	echo "There are several issues in it's GitHub issue tracker about it."
-	echo "Most of them are closed with \"don't use spaces\" lol."
+	echo "Most of them are closed with \"don't use spaces\"."
 	exit 1
 fi
 
@@ -62,40 +62,40 @@ source "${FuncDir}/command-build.sh"
 ################################################################################
 ################################################################################
 
-if [[ $ASHCMD == 'issue' ]];
+if [[ $ASHCMD == "issue" ]];
 then CommandIssue $ASHARG
 
-elif [[ $ASHCMD == 'remove' ]];
+elif [[ $ASHCMD == "remove" ]];
 then CommandRemove $ASHARG
 
-elif [[ $ASHCMD == 'list' ]];
+elif [[ $ASHCMD == "list" ]];
 then CommandList $ASHARG
 
-elif [[ $ASHCMD == 'install' ]];
+elif [[ $ASHCMD == "install" ]];
 then CommandInstall $ASHARG
 
-elif [[ $ASHCMD == 'update' ]];
+elif [[ $ASHCMD == "update" ]];
 then CommandUpdate
 
 elif [[ $ASHCMD == "build" ]];
 then CommandBuildRelease $ASHARG
 
-elif [[ $ASHCMD == 'default:letsencrypt' ]];
+elif [[ $ASHCMD == "default:letsencrypt" ]];
 then CommandDefaultLetsEncrypt
 
-elif [[ $ASHCMD == 'default:zerossl' ]];
+elif [[ $ASHCMD == "default:zerossl" ]];
 then CommandDefaultLetsEncrypt
 
-elif [[ $ASHCMD == 'conf:acmesh' ]];
+elif [[ $ASHCMD == "conf:acmesh" ]];
 then CommandConfigForAcmeShCLI $ASHARG
 
-elif [[ $ASHCMD == 'conf:apache' ]];
+elif [[ $ASHCMD == "conf:apache" ]];
 then CommandConfigForApacheConf $ASHARG
 
-elif [[ $ASHCMD == 'conf:gitea' ]];
+elif [[ $ASHCMD == "conf:gitea" ]];
 then CommandConfigForGitea $ASHARG
 
-elif [[ $ASHCMD == '--version' ]];
+elif [[ $ASHCMD == "--version" ]];
 then
 	echo "ashbox v${Version} [ acme.sh" $("$ASHBIN" $ASHCFG --version | grep v) "]"
 	exit 0
