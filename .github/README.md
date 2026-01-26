@@ -138,3 +138,14 @@ Certs Dir:       /opt/ashbox/certs
 acme.sh Install: /opt/ashbox/.ash
 acme.sh Config:  /opt/ashbox/.cfg
 ```
+
+New commands can be added by adding a new `command-whatever.sh` file to the `.fn` directory that register with the plugin system.
+
+```bash
+AshboxRegisterCommand "whatever" "CommandWhatever"
+
+function CommandWhatever() {(
+	echo "whatever."
+	exit $KTHXBAI
+)}
+```
