@@ -8,7 +8,7 @@ AshboxCommandRegister "--version" "CommandVersion"
 
 function CommandVersion() {(
 
-	echo "ashbox v${Version} [ acme.sh" $("$AcmeShCmd" $AcmeShCfgFlags --version | grep v) "]"
+	echo "ashbox v${AppVersion} [ acme.sh" $("$AcmeShCmd" $AcmeShCfgFlags --version | grep v) "]"
 
 	exit $KTHXBAI
 )};

@@ -3,7 +3,9 @@
 ## terminal functions ##########################################################
 
 function QueryTerminalWidth() {
+
 	tput cols
+
 	return $OK
 }
 
@@ -90,8 +92,9 @@ function PrintH2Ln() {
 ################################################################################
 
 function ShowHelpFile() {
+
 	echo
-	cat "${AshboxConfig['HelpDir']}/$1"
+	cat "${Config['HelpDir']}/$1"
 	echo
 
 	return $OK

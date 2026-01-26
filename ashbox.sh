@@ -2,22 +2,23 @@
 ################################################################################
 ## a s h b o x #################################################################
 
-declare    AshboxBin=$(realpath "$0")
-declare    AshboxRoot=$(dirname "${AshboxBin}")
-declare -r AshboxVersion="1.0.0-dev"
+declare    AppBin=$(realpath "$0")
+declare    AppRoot=$(dirname "${AppBin}")
+declare -r AppVersion="1.0.0-dev"
 
 ################################################################################
 ################################################################################
 
-declare -A AshboxConfig=(
-	["Root"]="${AshboxRoot}"
+declare -A Config=(
+	["AppRoot"]="${AppRoot}"
 	["TempDir"]="/tmp/ashbox"
-	["InstDir"]="${AshboxRoot}/.ash"
-	["ConfDir"]="${AshboxRoot}/.cfg"
-	["HelpDir"]="${AshboxRoot}/.docs"
-	["FuncDir"]="${AshboxRoot}/.fn"
-	["CertDir"]="${AshboxRoot}/.certs"
+	["InstDir"]="${AppRoot}/.ash"
+	["ConfDir"]="${AppRoot}/.cfg"
+	["HelpDir"]="${AppRoot}/.docs"
+	["FuncDir"]="${AppRoot}/.fn"
+	["CertDir"]="${AppRoot}/.certs"
 	["AshboxRepoURL"]="https://github.com/bobmagicii/ashbox"
+	["AcmeShBinFile"]="acme.sh"
 	["AcmeShRepoURL"]="https://github.com/acmesh-official/acme.sh"
 );
 
@@ -26,12 +27,12 @@ declare -A AshboxConfig=(
 
 function Ashbox() {(
 
-	declare    AshboxCmd=$1
-	declare    AshboxArgs=${@:2}
-	declare    AshboxGitCmd=""
-	declare -A AshboxCmdFuncs=()
-	declare    AcmeShCmd=""
-	declare    AcmeShCfgFlags=""
+	declare Cmd=$1
+	declare Args=${@:2}
+	declare -A Commands=()
+
+	declare AcmeShCmd=""
+	declare AcmeShCfgFlags=""
 
 	################################
 	################################
@@ -43,97 +44,21 @@ function Ashbox() {(
 
 	declare -r KTHXBAI=$OK
 	declare -r OHSNAP=$ERR
-	declare -r NAHIDK=$ERR_UNKNOWN
 
 	################################
 	################################
 
 	function Constructor() {
-		_BackfillAshboxConfig
-		_BackfillAcmeShConfig
-		return $KTHXBAI
-	};
 
-	function _BackfillAshboxConfig() {
-
-		AshboxGitCmd="git -C ${AshboxConfig['Root']}"
+		AcmeShCmd="${Config['InstDir']}/${Config['AcmeShBinFile']}"
+		AcmeShCfgFlags+="--home ${Config['InstDir']} "
+		AcmeShCfgFlags+="--cert-home ${Config['CertDir']} "
+		AcmeShCfgFlags+="--config-home ${Config['ConfDir']} "
 
 		return $KTHXBAI
 	};
 
-	function _BackfillAcmeShConfig() {
-
-		# acme.sh command path.
-
-		AcmeShCmd="${AshboxConfig['InstDir']}/acme.sh"
-
-		# arguments to make acme.sh put things where we want them
-		# to be put and stuff.
-
-		AcmeShCfgFlags+="--home ${AshboxConfig['InstDir']} "
-		AcmeShCfgFlags+="--cert-home ${AshboxConfig['CertDir']} "
-		AcmeShCfgFlags+="--config-home ${AshboxConfig['ConfDir']} "
-
-		########
-
-		return $KTHXBAI
-	};
-
-	################################
-	################################
-
-	function AshboxCommandRegister() {
-
-		# reference $AshboxCmdFuncs
-
-		local Cmd=$1
-		local Fnc=$2
-
-		########
-
-		AshboxCmdFuncs[$Cmd]=$Fnc
-
-		return $KTHXBAI
-	};
-
-	function AshboxCommandExecute() {
-
-		# reference $AshboxCmdFuncs
-		# reference $AshboxArgs
-
-		local Cmd=$1
-
-		########
-
-		if [[ -v AshboxCmdFuncs[$Cmd] ]];
-		then
-			${AshboxCmdFuncs[$Cmd]} $AshboxArgs
-			exit $?
-		fi
-
-		########
-
-		return $KTHXBAI
-	};
-
-	function AshboxPluginLoader() {
-
-		local Dir=$1
-		local File=""
-
-		########
-
-		for File in ${Dir}/*.sh;
-		do
-			source "${File}"
-		done
-
-		########
-
-		return $KTHXBAI
-	};
-
-	function AshboxHaltIfPathHasWhitespace() {
+	function _HaltIfPathHasWhitespace() {
 
 		local Dir=$1
 
@@ -154,16 +79,67 @@ function Ashbox() {(
 		return $KTHXBAI
 	};
 
+	function _LoadPluginsFrom() {
+
+		local Dir=$1
+		local File=""
+
+		########
+
+		for File in ${Dir}/*.sh;
+		do
+			source "${File}"
+		done
+
+		########
+
+		return $KTHXBAI
+	};
+
+	function _ExecuteCommand() {
+
+		# reference $Commands
+
+		local Cmd=$1
+		local Args=$2
+
+		########
+
+		if [[ -v Commands[$Cmd] ]];
+		then
+			${Commands[$Cmd]} $Args
+			exit $?
+		fi
+
+		########
+
+		return $KTHXBAI
+	};
+
+	################################
+	################################
+
+	function AshboxCommandRegister() {
+
+		# reference $Commands
+		# plugin api function
+
+		local Cmd=$1
+		local Fnc=$2
+
+		Commands[$Cmd]=$Fnc
+
+		return $KTHXBAI
+	};
+
 	################################
 	################################
 
 	Constructor
-
-	AshboxHaltIfPathHasWhitespace "${InstDir}"
-	AshboxPluginLoader "${AshboxConfig['FuncDir']}"
-
-	AshboxCommandExecute "${AshboxCmd}"
-	AshboxCommandExecute "help"
+	_HaltIfPathHasWhitespace "${Config['InstDir']}"
+	_LoadPluginsFrom "${Config['FuncDir']}"
+	_ExecuteCommand "${Cmd}" "${Args}"
+	_ExecuteCommand "help"
 
 	################################
 	################################

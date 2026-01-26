@@ -10,24 +10,38 @@ function CommandUpdate() {(
 
 	function UpdateSelf() {
 
-		local Command="${AshboxGitCmd} pull"
+		local Command=""
 
-		PrintH2 "Updating ashbox"
-		echo
+		########
+
+		printf -v Command "git -C %s pull" "${Config['AppRoot']}"
+
+		########
+
+		PrintH2Ln "Updating ashbox"
 		$Command
 		echo
 
-		return $OK
+		########
+
+		return $KTHXBAI
 	};
 
 	function UpdateASH() {
 
-		local Command="bash ${AcmeShCmd} ${AcmeShCfgFlags} --upgrade"
+		local Command=""
 
-		PrintH2 "Updating acme.sh"
-		echo
+		########
+
+		printf -v Command "bash %s ${AcmeShCfgFlags} --upgrade" "${AcmeShCmd}"
+
+		########
+
+		PrintH2Ln "Updating acme.sh"
 		$Command
 		echo
+
+		########
 
 		return $OK
 	};

@@ -1,3 +1,5 @@
+################################################################################
+## ashbox.sh conf:gitea ########################################################
 
 AshboxCommandRegister "conf:gitea" "CommandConfigForGitea"
 
@@ -19,8 +21,8 @@ function CommandConfigForGitea() {(
 	echo "Gitea custom/config/app.ini Config"
 	echo "=================================="
 
-	echo "KEY_FILE  = ${AshboxConfig['CertDir']}/${Domain}_ecc/${Domain}.key"
-	echo "CERT_FILE = ${AshboxConfig['CertDir']}/${Domain}_ecc/fullchain.cer"
+	echo "KEY_FILE  = ${Config['CertDir']}/${Domain}_ecc/${Domain}.key"
+	echo "CERT_FILE = ${Config['CertDir']}/${Domain}_ecc/fullchain.cer"
 	echo
 
 	exit $KTHXBAI

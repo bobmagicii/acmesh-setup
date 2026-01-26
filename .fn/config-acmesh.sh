@@ -1,10 +1,14 @@
+################################################################################
+## ashbox.sh cli:acmesh ########################################################
 
-AshboxCommandRegister "cli:acmesh" "CommandConfigForAcmeShCLI"
+AshboxCommandRegister "conf:acmesh" "CommandConfigForAcmeShCLI"
 
 ################################################################################
 ################################################################################
 
 CommandConfigForAcmeShCLI() {(
-	echo "$AcmeShCfgFlags"
+
+	echo "${AcmeShCfgFlags}"
+
 	exit $KTHXBAI
 )};

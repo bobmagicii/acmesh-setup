@@ -7,7 +7,7 @@ AshboxCommandRegister "help" "CommandHelp"
 
 CommandHelp() {(
 
-	PrintH1 "ashbox v${Version}"
+	PrintH1 "ashbox v${AppVersion}"
 	ShowHelpFile "ashbox.txt"
 
 	exit $ERR_HELP;

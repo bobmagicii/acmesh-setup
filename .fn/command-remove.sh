@@ -62,7 +62,7 @@ function CommandRemove() {(
 
 	if [[ $DoClean -eq 1 ]];
 	then
-		CertRemoveFiles "${Domain}" "${AshboxConfig['CertDir']}"
+		CertRemoveFiles "${Domain}" "${Config['CertDir']}"
 	fi
 
 	echo
