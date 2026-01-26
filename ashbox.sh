@@ -78,11 +78,14 @@ elif [[ $ASHCMD == "list" ]];
 then
 	CommandList $ASHARG
 	exit $?
+
 elif [[ $ASHCMD == "install" ]];
 then CommandInstall $ASHARG
 
 elif [[ $ASHCMD == "update" ]];
-then CommandUpdate
+then
+	CommandUpdate $ASHARG
+	exit $?
 
 elif [[ $ASHCMD == "build" ]];
 then CommandBuildRelease $ASHARG
