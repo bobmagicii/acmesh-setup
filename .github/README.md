@@ -108,7 +108,7 @@ $ ./ashbox.sh list --json
 Get the CLI args that make acme.sh work.
 
 ```
-$ ./ashbox.sh conf:acmesh
+$ ./ashbox.sh conf:acmesh:shell:args
 ```
 ```
 --home /opt/ashbox/.ash --cert-home /opt/ashbox/certs --config-home /opt/ashbox/.cfg
@@ -117,15 +117,12 @@ $ ./ashbox.sh conf:acmesh
 Get the SSL configuration for Apache 2.4 configuration.
 
 ```
-$ ./ashbox.sh conf:apache pegasusgate.net
+$ ./ashbox.sh conf:apache:vhost:ssl pegasusgate.net
 ```
 ```
-VHOST SSL CONFIG
-================
-
-SSLCertificateFile    /opt/ashbox/certs/pegasusgate.net_ecc/pegasusgate.net.cer
-SSLCertificateKeyFile /opt/ashbox/certs/pegasusgate.net_ecc/pegasusgate.net.key
-SSLCACertificateFile  /opt/ashbox/certs/pegasusgate.net_ecc/fullchain.cer
+SSLCertificateFile    "/opt/ashbox/certs/pegasusgate.net_ecc/pegasusgate.net.cer"
+SSLCertificateKeyFile "/opt/ashbox/certs/pegasusgate.net_ecc/pegasusgate.net.key"
+SSLCACertificateFile  "/opt/ashbox/certs/pegasusgate.net_ecc/fullchain.cer"
 ```
 
 
