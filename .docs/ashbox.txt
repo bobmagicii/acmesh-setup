@@ -33,6 +33,11 @@ SET DEFAULTS
 
 CONFIG TOOLS
 
+	General SSL Configuration
+
+	* conf:ssl <domain>
+	  The filepaths to the certs contained within ashbox for this domain.
+
 	acme.sh Shell
 
 	* conf:acmesh:shell:args
