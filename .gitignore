@@ -1,5 +1,8 @@
 # bof
 
+*.tar.gz
+*.zip
+
 .DS_Store
 .ash
 .cfg

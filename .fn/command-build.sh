@@ -16,10 +16,10 @@ function CommandBuildRelease() {(
 	local CmdTar="tar -czf ${Tarball} ${Include}"
 	local CmdZip="zip -r ${Zipfile} ${Include}"
 
-	# edit script version number on disk
+	sed -i "s/declare -r AppVersion.*/declare -r AppVersion=\"${Version}\"/" ashbox.sh
 
-	$CmdTar
-	$CmdZip
+	$CmdTar >/dev/null
+	$CmdZip >/dev/null
 
 	exit $KTHXBAI
 )};
