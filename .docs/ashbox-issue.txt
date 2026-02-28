@@ -1,23 +1,37 @@
-ashbox.sh issue <options> <domain1> ...
+-ashbox.sh issue <options> <domain1> ...
 =======================================
 
 Issue and Fetch a new SSL cert for the specified domains.
 
-Web Root Validation
+WEB ROOT MODE
+
+	This will use the .well-known folder system to validate domain ownership.
 
 	--webroot /path/to/public/www
 
-DNS Validation
+DNS MODE
 
-	Aliases:
+	This uses the remote API on DNS providers to automatically set some
+	TXT records used for ownership validation.
+
+	--dns <dnsapi>
+
+	Each of the DNS supported by acme.sh have their variables you set to make
+	their script work. Paste those variables into the `.cfg/account.conf`
+	file.
+
+	Example, to make dns_porkbun work:
+
+	PORKBUN_API_KEY='...'
+	PORKBUN_SECRET_API_KEY='...'
+
+	DNS Mode Documentation to find the --dns name and variables you need
+	for your DNS provider:
+
+	https://github.com/acmesh-official/acme.sh/wiki/dnsapi
+
+
+DNS ALIASES (Ashbox Shortcuts)
 
 	--digitalocean (--dns dns_dgon)
 	--porkbun (--dns dns_porkbun)
-
-	Other DNS:
-
-	--dns <whichever>
-	Pass the same value used by acme.sh to use other DNS.
-
-	acme.sh DNS Documentation:
-	https://github.com/acmesh-official/acme.sh/wiki/dnsapi
