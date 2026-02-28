@@ -4,7 +4,7 @@
 
 declare    AppBin=$(realpath "${BASH_SOURCE}")
 declare    AppRoot=$(dirname "${AppBin}")
-declare -r AppVersion="1.0.0-dev"
+declare -r AppVersion="1.0.0"
 
 ################################################################################
 ################################################################################
