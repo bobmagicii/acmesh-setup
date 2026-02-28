@@ -74,6 +74,10 @@ Issue and fetch a cert for the specified domain(s) using DNS API Mode. See the `
 $ ./ashbox.sh issue domain.tld --porkbun
 ```
 
+```
+$ ./ashbox.sh issue domain.tld --webroot /opt/web-domain/www
+```
+
 Remove a certificate from the system.
 
 ```
